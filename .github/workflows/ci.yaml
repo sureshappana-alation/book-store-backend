@@ -1,14 +1,22 @@
 name: ci
 
 on:
+  # This section is to trigger the workflow manually
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  # pull_request:
+  #   branches:
+  #     - main
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
   # Run the job when pull request closed
   # This job will only run if the PR has been merged.
   # This is commented for now to trigger the job manually only
   # pull_request:
   #   types: [ closed ]
-
-  # This section is to trigger the workflow manually
-  workflow_dispatch:
 
 jobs:
   # Build job builds the installer go module which generates and exports go binary
@@ -26,6 +34,7 @@ jobs:
 
       - name: Build docker image
         uses: mr-smithers-excellent/docker-build-push@v5
+        id: build-output
         with:
           registry: docker.io
           image: sureshappana/book-store-backend
