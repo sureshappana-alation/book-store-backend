@@ -24,12 +24,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build installer binary
-        id: docker_build
+      - name: Build docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          context: .
-          push: true
           image: sureshappana/book-store-backend
 
       - name: Print the list of docker images
